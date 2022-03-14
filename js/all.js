@@ -2,6 +2,7 @@
 const url = 'https://hexschool.github.io/js-filter-data/data.json';
 let data = [];
 
+const table = document.querySelector('.table-content');
 const renderData = (paramArray) => {
   let str = '';
   paramArray.forEach((item) => {
@@ -35,15 +36,14 @@ const renderData = (paramArray) => {
 
     str += content;
   });
-  return str;
+  table.innerHTML = str;
 };
 
-const table = document.querySelector('.table-content');
 /* global axios */
 axios.get(url).then((res) => {
   data = res.data.filter((a) => a.作物名稱);
   // TODO: 之後拆成 renderData 函式
-  table.innerHTML = renderData(data);
+  renderData(data);
 });
 
 const filterCategory = (e) => {
@@ -51,7 +51,7 @@ const filterCategory = (e) => {
   const { category } = e.target.dataset;
   const showData = data.filter((i) => i.種類代碼 === category);
   // TODO: 之後拆成 renderData 函式
-  table.innerHTML = renderData(showData);
+  renderData(showData);
 };
 
 const filter = document.querySelector('.filter');
